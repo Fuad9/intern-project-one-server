@@ -5,8 +5,8 @@ require("dotenv").config();
 const fileUpload = require("express-fileupload");
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.xg0hf.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const MongoClient = require("mongodb").MongoClient;
-const { ObjectID } = require("mongodb");
-const admin = require("firebase-admin");
+// const { ObjectID } = require("mongodb");
+// const admin = require("firebase-admin");
 const port = 5000;
 
 const app = express();
