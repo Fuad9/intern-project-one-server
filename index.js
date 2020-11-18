@@ -5,8 +5,6 @@ require("dotenv").config();
 const fileUpload = require("express-fileupload");
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.xg0hf.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const MongoClient = require("mongodb").MongoClient;
-// const { ObjectID } = require("mongodb");
-// const admin = require("firebase-admin");
 const port = 5000;
 
 const app = express();
@@ -14,13 +12,6 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static("services"));
 app.use(fileUpload());
-
-// var serviceAccount = require("./creative-agency-dc106-firebase-adminsdk-wdqrh-889e3aba29.json");
-
-// admin.initializeApp({
-//     credential: admin.credential.cert(serviceAccount),
-//     databaseURL: "https://creative-agency-dc106.firebaseio.com",
-// });
 
 const client = new MongoClient(uri, {
     useNewUrlParser: true,
