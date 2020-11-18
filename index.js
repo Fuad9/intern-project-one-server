@@ -25,7 +25,6 @@ client.connect((err) => {
     app.post("/addCategory", (req, res) => {
         const file = req.files.file;
         const name = req.body.name;
-        console.log(req.body);
         const newImg = file.data;
         const encImg = newImg.toString("base64");
 
