@@ -28,38 +28,32 @@ const client = new MongoClient(uri, {
 });
 client.connect((err) => {
     const expenseCollection = client.db(`${process.env.DB_NAME}`).collection("dailyExpenses");
+    const categoryCollection = client.db(`${process.env.DB_NAME}`).collection("categories");
 
-    // // to add customer orders
-    // app.post("/addOrders", (req, res) => {
-    //     const file = req.files.file;
-    //     const name = req.body.name;
-    //     const email = req.body.email;
-    //     const service = req.body.service;
-    //     const price = req.body.price;
-    //     const description = req.body.description;
-    //     const newImg = file.data;
-    //     const encImg = newImg.toString("base64");
+    // to add customer orders
+    app.post("/addCategory", (req, res) => {
+        const file = req.files.file;
+        const name = req.body.name;
+        console.log(req.body);
+        const newImg = file.data;
+        const encImg = newImg.toString("base64");
 
-    //     var image = {
-    //         contentType: file.mimetype,
-    //         size: file.size,
-    //         img: Buffer.from(encImg, "base64"),
-    //     };
+        var image = {
+            contentType: file.mimetype,
+            size: file.size,
+            img: Buffer.from(encImg, "base64"),
+        };
 
-    //     ordersCollection
-    //         .insertOne({
-    //             name,
-    //             email,
-    //             image,
-    //             service,
-    //             price,
-    //             description,
-    //             status: "Pending",
-    //         })
-    //         .then((result) => {
-    //             res.send(result);
-    //         });
-    // });
+        categoryCollection
+            .insertOne({
+                name,
+                image,
+            })
+            .then((result) => {
+                res.send(result);
+                console.log(result);
+            });
+    });
 
     app.get("/", (req, res) => {
         res.send("It's working successfully");
@@ -99,15 +93,15 @@ client.connect((err) => {
     });
 
     // to retrieve all services
-    app.get("/showServices", (req, res) => {
-        servicesCollection.find({}).toArray((err, documents) => {
+    app.get("/showCategories", (req, res) => {
+        categoryCollection.find({}).toArray((err, documents) => {
             res.send(documents);
         });
     });
 
     // to retrieve single service
-    app.get("/showSingleService", (req, res) => {
-        singleServiceCollection.find({}).toArray((err, documents) => {
+    app.get("/showAllExpenses", (req, res) => {
+        expenseCollection.find({}).toArray((err, documents) => {
             res.send(documents);
         });
     });
