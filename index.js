@@ -58,61 +58,16 @@ client.connect((err) => {
         });
     });
 
-    // to add reviews
-    app.post("/addSingleReview", (req, res) => {
-        const reviews = req.body;
-        singleReviewCollection.insertOne(reviews).then((result) => {
-            res.send(result.insertedCount > 0);
-        });
-    });
-
-    // to check admins
-    app.post("/isAdmin", (req, res) => {
-        const email = req.body.email;
-        adminsCollection.find({ email: email }).toArray((err, admins) => {
-            res.send(admins.length > 0);
-        });
-    });
-
-    // to add Admin
-    app.post("/addAdmin", (req, res) => {
-        const admin = req.body;
-        adminsCollection.insertOne(admin).then((result) => {
-            res.send(result.insertedCount > 0);
-        });
-    });
-
-    // to retrieve all services
+    // to retrieve all categories
     app.get("/showCategories", (req, res) => {
         categoryCollection.find({}).toArray((err, documents) => {
             res.send(documents);
         });
     });
 
-    // to retrieve single service
+    // to retrieve all customer expenses
     app.get("/showAllExpenses", (req, res) => {
         expenseCollection.find({}).toArray((err, documents) => {
-            res.send(documents);
-        });
-    });
-
-    // to retrieve all reviews
-    app.get("/showReviews", (req, res) => {
-        reviewsCollection.find({}).toArray((err, documents) => {
-            res.send(documents);
-        });
-    });
-
-    // to retrieve all orders
-    app.get("/showOrders", (req, res) => {
-        ordersCollection.find({}).toArray((err, documents) => {
-            res.send(documents);
-        });
-    });
-
-    // to retrieve single review
-    app.get("/showSingleReview", (req, res) => {
-        singleReviewCollection.find({}).toArray((err, documents) => {
             res.send(documents);
         });
     });
